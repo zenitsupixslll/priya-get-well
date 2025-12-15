@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Priya 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ffd1dc, #fff5fa);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: background 1s;
+}
+
+/* NIGHT MODE */
+body.night {
+    background: radial-gradient(circle at top, #1b1f3b, #090a1a);
+    color: white;
+}
+
+/* CARD */
+.card {
+    background: white;
+    width: 90%;
+    max-width: 520px;
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    text-align: center;
+    animation: float 3s ease-in-out infinite;
+}
+
+body.night .card {
+    background: rgba(255,255,255,0.08);
+    color: white;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+.hidden { display: none; }
+
+h1 {
+    color: #ff3d7f;
+    text-shadow: 0 0 12px rgba(255,61,127,0.6);
+}
+
+button {
+    margin-top: 15px;
+    padding: 12px 26px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #ff6fa5, #ff3d7f);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(255,61,127,0.5);
+}
+
+.photos {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.photos img {
+    width: 120px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255,77,136,0.9);
+}
+
+.actions button {
+    margin: 8px;
+}
+
+/* FLOATING EMOJIS */
+.floating {
+    position: absolute;
+    pointer-events: none;
+    animation: fall linear infinite;
+    font-size: 22px;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-10vh); }
+    100% { transform: translateY(110vh); }
+}
+
+/* STARS */
+.star {
+    position: absolute;
+    background: white;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    opacity: 0.8;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" src="WhatsApp Audio 2025-12-15 at 21.26.53.mpeg" loop></audio>
+
+<!-- PASSWORD -->
+<div class="card" id="lock">
+    <h1>🔒 Private</h1>
+    <p>Enter password</p>
+    <input id="pass" type="password" placeholder="Only Priya 💖">
+    <br><br>
+    <button onclick="unlock()">Unlock 💗</button>
+</div>
+
+<!-- LETTER -->
+<div class="card hidden" id="letter">
+    <h1>💌 Hey Priya</h1>
+    <p id="type"></p>
+    <button onclick="openSurprise()">Open ✨</button>
+</div>
+
+<!-- SURPRISE -->
+<div class="card hidden" id="main">
+    <h1>Get Well Soon, Priya 🌸</h1>
+
+    <p id="counter"></p>
+
+    <div class="photos">
+        <img src="WhatsApp Image 2025-12-14 at 17.25.17.jpeg" alt="Priya photo 1">
+        <img src="WhatsApp Image 2025-12-14 at 17.25.07.jpeg" alt="Priya photo 2">
+    </div>
+
+    <div class="actions">
+        <button onclick="hug()">🤗 Hug</button>
+        <button onclick="kiss()">😘 Kiss</button>
+        <button onclick="toggleNight()">🌙 Night</button>
+    </div>
+
+    <p id="msg"></p>
+
+    <p>🍫 🧸 🌸 💖 🌹</p>
+    <p><i>— Always yours, Yash 💞</i></p>
+</div>
+
+<script>
+/* PASSWORD */
+function unlock() {
+    if (document.getElementById("pass").value === "bauni") {
+        document.getElementById("lock").classList.add("hidden");
+        document.getElementById("letter").classList.remove("hidden");
+    } else {
+        alert("Wrong password 💔");
+    }
+}
+
+/* TYPEWRITER */
+const text = `I know you’re sick right now,
+but I want you to remember
+you’re never alone.
+batman is with you🤍`;
+
+let i = 0;
+function typeWriter() {
+    if (i < text.length) {
+        document.getElementById("type").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 40);
+    }
+}
+typeWriter();
+
+/* OPEN SURPRISE */
+function openSurprise() {
+    document.getElementById("letter").classList.add("hidden");
+    document.getElementById("main").classList.remove("hidden");
+    document.getElementById("music").play();
+    startCounter();
+}
+
+/* DAY COUNTER */
+function startCounter() {
+    const start = new Date("2025-02-23");
+    setInterval(() => {
+        const now = new Date();
+        const days = Math.floor((now - start) / (1000 * 60 * 60 * 24));
+        document.getElementById("counter").innerText =
+            `💞 ${days} days since I fell for you`;
+    }, 1000);
+}
+
+/* ACTIONS */
+function hug() {
+    document.getElementById("msg").innerText =
+        "🤗 Tight hug just for you, Priya";
+}
+
+function kiss() {
+    document.getElementById("msg").innerText =
+        "😘 Soft kiss on your forehead";
+}
+
+/* NIGHT MODE */
+function toggleNight() {
+    document.body.classList.toggle("night");
+    if (document.body.classList.contains("night")) createStars();
+}
+
+/* FLOATING EMOJIS */
+const icons = ["💖","🌸","🍫","🧸","🌹"];
+setInterval(() => {
+    const f = document.createElement("div");
+    f.className = "floating";
+    f.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+    f.style.left = Math.random() * 100 + "vw";
+    f.style.animationDuration = (3 + Math.random() * 4) + "s";
+    document.body.appendChild(f);
+    setTimeout(() => f.remove(), 7000);
+}, 300);
+
+/* STARS */
+function createStars() {
+    for (let i = 0; i < 80; i++) {
+        const s = document.createElement("div");
+        s.className = "star";
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.top = Math.random() * 100 + "vh";
+        document.body.appendChild(s);
+    }
+}
+</script>
+
+</body>
+</html>
